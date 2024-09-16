@@ -1,20 +1,40 @@
+# variables.tf
+
+# GCP Project ID
 variable "project_id" {
-  description = "GCP Project ID"
+  description = "The ID of the GCP project."
+  type        = string
 }
 
+# GCP Region
 variable "region" {
-  description = "GCP region"
+  description = "The GCP region for the resources."
+  type        = string
   default     = "us-central1"
 }
 
-variable "ssh_username" {
-  description = "SSH username"
-}
-
+# SSH Public Key Path
 variable "ssh_pub_key_path" {
-  description = "Path to public SSH key"
+  description = "The path to the SSH public key file."
+  type        = string
 }
 
-variable "tailscale_auth_key" {
-  description = "Tailscale authentication key"
+# SSH Private Key Path
+variable "ssh_private_key_path" {
+  description = "The path to the SSH private key file."
+  type        = string
 }
+
+# SSH Username
+variable "ssh_username" {
+  description = "The SSH username to use for the instance."
+  type        = string
+}
+
+# Tailscale API Key
+variable "tailscale_api_key" {
+  description = "The Tailscale API key for authentication."
+  type        = string
+  sensitive   = true
+}
+
