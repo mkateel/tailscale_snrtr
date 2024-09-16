@@ -2,31 +2,31 @@
 # GCP Tailscale Terraform Setup
 
 This repository contains Terraform configuration files to set up a Google Cloud Platform (GCP) infrastructure with two compute instances:
-1. A Tailscale-enabled instance for VPN routing.
+1. A Tailscale-enabled instance for subnet routing.
 2. A basic non-Tailscale instance with SSH access.
 
 ## Prerequisites
 
 Before using this repository, ensure you have the following:
-1. **Google Cloud Account** with billing enabled.
-2. **Tailscale API Key** for VPN setup.
-3. **Terraform installed** on your local machine. You can download it [here](https://learn.hashicorp.com/tutorials/terraform/install-cli).
-4. **GCP Project** and the necessary permissions (Owner or Editor role).
-5. **SSH Key Pair** for SSH access to the instances.
+1. Google Cloud Account with billing enabled.
+2. Tailscale API Key to install tailscale on the GCP VM.
+3. Terraform installed on your local machine. You can download it [here](https://learn.hashicorp.com/tutorials/terraform/install-cli).
+4. GCP Project and the necessary permissions (Owner or Editor role).
+5. SSH Key Pair for SSH access to the instances.
 
 ## Features
 
-- **Tailscale VPN**: One of the instances is configured with Tailscale to allow secure private network access.
-- **IP Forwarding**: The Tailscale instance has IP forwarding enabled to allow routing through it.
-- **SSH Access**: Both instances allow SSH access via your public SSH key.
-- **Firewall Rules**: Necessary firewall rules for SSH and Tailscale traffic.
+- Tailscale Subnet Router: One of the instances is configured with Tailscale to allow secure private network access.
+- IP Forwarding: The Tailscale instance has IP forwarding enabled to allow routing through it.
+- SSH Access: Both instances allow SSH access via your public SSH key.
+- Firewall Rules: Necessary firewall rules for SSH and Tailscale traffic.
 
 ## Terraform Resources
 
-- **VPC Network**: Creates a private network in GCP.
-- **Subnetwork**: Subnetwork with a custom CIDR.
-- **Firewall Rules**: Allow traffic on the required ports for SSH and Tailscale.
-- **Compute Instances**: Two instances, one with Tailscale and one without.
+- VPC Network: Creates a private network in GCP.
+- Subnetwork: Subnetwork with a custom CIDR.
+- Firewall Rules: Allow traffic on the required ports for SSH and Tailscale. (https://tailscale.com/kb/1082/firewall-ports)
+- Compute Instances: Two instances, one with Tailscale and one without.
 
 ## Project Structure
 
@@ -42,8 +42,8 @@ Before using this repository, ensure you have the following:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/gcp-tailscale-terraform.git
-cd gcp-tailscale-terraform
+git clone https://github.com/mkateel/tailscale_snrtr
+cd tailscale_snrtr
 ```
 
 ### 2. Configure GCP Authentication
@@ -112,13 +112,13 @@ This command will prompt for confirmation before creating resources. Type `yes` 
 
 Once Terraform finishes deploying the instances, you can access them via SSH using the private key you provided.
 
-- For the **Tailscale instance**, use the public IP or the Tailscale IP assigned.
+- For the **Tailscale instance**, use the private IP or the Tailscale IP assigned.
   
   ```bash
   ssh -i /path/to/your/private/key your-ssh-username@<instance-public-ip>
   ```
 
-- For the **non-Tailscale instance**, you can access it similarly using the public IP.
+- For the **non-Tailscale instance**, you can access it similarly using the private IP.
 
 ## Variables
 
